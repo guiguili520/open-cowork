@@ -236,7 +236,7 @@ export class MCPManager {
       );
       if (!preferredNpxPath) {
         throw new Error(
-          'npx is not available. Install Node.js so Open Cowork can use your system npx.cmd, or reinstall the app to restore the bundled runtime.'
+          'npx is not available. Install Node.js so Sidekick can use your system npx.cmd, or reinstall the app to restore the bundled runtime.'
         );
       }
 
@@ -633,6 +633,13 @@ export class MCPManager {
   }
 
   /**
+   * Get the path to the Image Generation MCP server file
+   */
+  private getImageGenServerPath(): string {
+    return this.getMcpServerPath('image-gen-server.ts');
+  }
+
+  /**
    * Connect to a single MCP server
    */
   private async connectServer(config: MCPServerConfig): Promise<void> {
@@ -700,6 +707,10 @@ export class MCPManager {
         // GUI Operate server path
         if (arg === '{GUI_OPERATE_SERVER_PATH}') {
           return this.getGuiOperateServerPath();
+        }
+        // Image Generation server path
+        if (arg === '{IMAGE_GEN_SERVER_PATH}') {
+          return this.getImageGenServerPath();
         }
         return arg;
       });

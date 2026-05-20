@@ -308,7 +308,7 @@ function setupTray() {
   }
 
   tray = new Tray(resolvedIconPath);
-  tray.setToolTip('Open Cowork');
+  tray.setToolTip('Sidekick');
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -807,7 +807,7 @@ app
     setDevLogsEnabled(enableDevLogs);
 
     // Log environment variables for debugging
-    log('=== Open Cowork Starting ===');
+    log('=== Sidekick Starting ===');
     log('Config file:', configStore.getPath());
     log('Is configured:', configStore.isConfigured());
     log('[Runtime] Using pi-coding-agent SDK for all providers');
@@ -834,9 +834,7 @@ app
 
     pluginRuntimeService = new PluginRuntimeService(new PluginCatalogService());
     memoryService = new MemoryService(db);
-    const extensionManager = new AgentRuntimeExtensionManager([
-      new MemoryExtension(memoryService),
-    ]);
+    const extensionManager = new AgentRuntimeExtensionManager([new MemoryExtension(memoryService)]);
 
     // Initialize session manager before creating an interactive window.
     // This avoids session.start racing the startup path and hitting a null manager.
@@ -1007,7 +1005,7 @@ app
   .catch((error) => {
     logError('[App] Startup failed:', error);
     const message = error instanceof Error ? error.message : 'Unknown startup error';
-    dialog.showErrorBox('Open Cowork 启动失败', `${message}\n\n请查看日志获取更多信息。`);
+    dialog.showErrorBox('Sidekick 启动失败', `${message}\n\n请查看日志获取更多信息。`);
     app.quit();
   });
 
@@ -1470,7 +1468,10 @@ ipcMain.handle('config.save', async (_event, newConfig: Partial<AppConfig>) => {
       ? {
           ...newConfig.memoryRuntime,
           llm: newConfig.memoryRuntime.llm
-            ? { ...newConfig.memoryRuntime.llm, apiKey: newConfig.memoryRuntime.llm.apiKey ? '***' : '' }
+            ? {
+                ...newConfig.memoryRuntime.llm,
+                apiKey: newConfig.memoryRuntime.llm.apiKey ? '***' : '',
+              }
             : undefined,
           embedding: newConfig.memoryRuntime.embedding
             ? {
@@ -2177,7 +2178,7 @@ ipcMain.handle('logs.export', async () => {
       });
       archive.append(
         [
-          'Open Cowork diagnostic bundle',
+          'Sidekick diagnostic bundle',
           `Exported at: ${diagnosticsSummary.exportedAt}`,
           '',
           'Included files:',

@@ -10,7 +10,13 @@ import { log, logError } from '../utils/logger';
  * Preset MCP Server Configurations
  * These are common MCP servers that users can quickly add
  */
-export const MCP_SERVER_PRESETS: Record<string, Omit<MCPServerConfig, 'id' | 'enabled'> & { requiresEnv?: string[]; envDescription?: Record<string, string> }> = {
+export const MCP_SERVER_PRESETS: Record<
+  string,
+  Omit<MCPServerConfig, 'id' | 'enabled'> & {
+    requiresEnv?: string[];
+    envDescription?: Record<string, string>;
+  }
+> = {
   chrome: {
     name: 'Chrome',
     type: 'stdio',
@@ -56,6 +62,23 @@ export const MCP_SERVER_PRESETS: Record<string, Omit<MCPServerConfig, 'id' | 'en
       // No environment variables required
     },
   },
+  'image-gen': {
+    name: 'Image_Generation',
+    type: 'stdio',
+    command: 'node',
+    args: ['{IMAGE_GEN_SERVER_PATH}'], // Path will be resolved at runtime (compiled JS in production)
+    env: {
+      OPENAI_API_KEY: '',
+      OPENAI_BASE_URL: 'https://api.openai.com',
+      IMAGE_GEN_MODEL: 'gpt-image-2',
+    },
+    requiresEnv: ['OPENAI_API_KEY'],
+    envDescription: {
+      OPENAI_API_KEY: 'OpenAI API key (required) — get from https://platform.openai.com/api-keys',
+      OPENAI_BASE_URL: 'API base URL. Default https://api.openai.com. Override for Azure/proxy.',
+      IMAGE_GEN_MODEL: 'Model name. Default gpt-image-2.',
+    },
+  },
 };
 
 /**
@@ -97,13 +120,13 @@ class MCPConfigStore {
   saveServer(config: MCPServerConfig): void {
     const servers = this.getServers();
     const index = servers.findIndex((s) => s.id === config.id);
-    
+
     if (index >= 0) {
       servers[index] = config;
     } else {
       servers.push(config);
     }
-    
+
     this.store.set('servers', servers);
   }
 
@@ -141,7 +164,6 @@ class MCPConfigStore {
    * Get the path to a MCP server file in the mcp directory
    */
   private getMcpServerPath(filename: string): string | null {
-
     // In development: __dirname points to dist-electron/main
     // In production: appPath points to the app.asar or unpacked app
     if (app.isPackaged) {
@@ -211,6 +233,13 @@ class MCPConfigStore {
   }
 
   /**
+   * Get the path to the Image Generation MCP server file
+   */
+  private getImageGenServerPath(): string | null {
+    return this.getMcpServerPath('image-gen-server.ts');
+  }
+
+  /**
    * Create a server config from a preset
    */
   createFromPreset(presetKey: string, enabled: boolean = false): MCPServerConfig | null {
@@ -225,7 +254,7 @@ class MCPConfigStore {
     if (preset.args) {
       resolvedPreset = {
         ...preset,
-        args: preset.args.map(arg => {
+        args: preset.args.map((arg) => {
           // Software Development server path
           if (arg === '{SOFTWARE_DEV_SERVER_PATH}') {
             return this.getSoftwareDevServerPath() || arg;
@@ -233,6 +262,10 @@ class MCPConfigStore {
           // GUI Operate server path
           if (arg === '{GUI_OPERATE_SERVER_PATH}') {
             return this.getGuiOperateServerPath() || arg;
+          }
+          // Image Generation server path
+          if (arg === '{IMAGE_GEN_SERVER_PATH}') {
+            return this.getImageGenServerPath() || arg;
           }
           return arg;
         }),

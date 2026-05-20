@@ -160,6 +160,8 @@ jobs:
           files: |
             release/*.dmg
             release/*.zip
+            release/latest-mac.yml
+            release/*.blockmap
           draft: true
 
   build-windows:
@@ -268,4 +270,6 @@ jobs:
         with:
           files: |
             release/*.exe
+            release/latest.yml
+            release/*.blockmap
           draft: true

@@ -31,6 +31,11 @@ const servers = [
     entry: 'software-dev-server-example.ts',
     description: 'Software Development MCP Server',
   },
+  {
+    name: 'image-gen-server',
+    entry: 'image-gen-server.ts',
+    description: 'Image Generation MCP Server',
+  },
 ];
 
 const NODE_EXTERNALS = [
