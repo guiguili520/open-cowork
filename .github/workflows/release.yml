@@ -85,9 +85,10 @@ jobs:
         run: npx vite build
 
       - name: Electron Builder (unsigned)
-        run: npx electron-builder --mac dmg dir --publish never
+        run: npx electron-builder --mac dmg dir --publish always
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Verify critical resources are present in the packaged app
       - name: Smoke test - verify packaged resources
@@ -157,16 +158,6 @@ jobs:
             exit 1
           fi
 
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v2
-        with:
-          files: |
-            release/*.dmg
-            release/*.zip
-            release/latest-mac.yml
-            release/*.blockmap
-          draft: true
-
   build-windows:
     name: Release Windows
     needs: [lint-and-test]
@@ -205,7 +196,9 @@ jobs:
         run: npx vite build
 
       - name: Electron Builder
-        run: npx electron-builder --win nsis --publish never
+        run: npx electron-builder --win nsis --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Verify critical resources are present in the packaged app
       - name: Smoke test - verify packaged resources
@@ -267,12 +260,3 @@ jobs:
             Write-Host "::error::Launch smoke test failed with exit code $($proc.ExitCode)"
             exit 1
           }
-
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v2
-        with:
-          files: |
-            release/*.exe
-            release/latest.yml
-            release/*.blockmap
-          draft: true

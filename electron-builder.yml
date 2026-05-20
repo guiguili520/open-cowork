@@ -161,3 +161,4 @@ publish:
   provider: github
   owner: guiguili520
   repo: open-cowork
+  releaseType: draft
