@@ -11,6 +11,7 @@ import * as tls from 'tls';
 import OpenAI from 'openai';
 import { Anthropic } from '@anthropic-ai/sdk';
 import { PROVIDER_PRESETS, configStore } from './config-store';
+import { getDecoyHeaders } from '../utils/decoy-user-agent';
 import { DEFAULT_OLLAMA_BASE_URL } from '../../shared/ollama-base-url';
 import { isLoopbackBaseUrl } from '../../shared/network/loopback';
 import {
@@ -206,7 +207,12 @@ function makeAnthropicClient(opts: {
   useAuthToken: boolean;
   baseUrl: string | undefined;
 }): Anthropic {
-  const base = { baseURL: opts.baseUrl, timeout: 15000 };
+  const decoyHeaders = getDecoyHeaders();
+  const base = {
+    baseURL: opts.baseUrl,
+    timeout: 15000,
+    ...(Object.keys(decoyHeaders).length > 0 ? { defaultHeaders: decoyHeaders } : {}),
+  };
   return opts.useAuthToken
     ? new Anthropic({ ...base, authToken: opts.effectiveKey })
     : new Anthropic({ ...base, apiKey: opts.effectiveKey });
@@ -429,10 +435,12 @@ async function stepAuth(input: DiagnosticInput, step: DiagnosticStep): Promise<v
         return;
       }
 
+      const decoyHeaders = getDecoyHeaders();
       const client = new OpenAI({
         apiKey: resolved.apiKey,
         baseURL: resolved.baseUrl || clientBaseUrl,
         timeout: 15000,
+        ...(Object.keys(decoyHeaders).length > 0 ? { defaultHeaders: decoyHeaders } : {}),
       });
       await client.models.list();
     } else {

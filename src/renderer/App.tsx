@@ -11,6 +11,7 @@ import {
   useSandboxSetupState,
   useSandboxSyncStatus,
   usePendingDialogs,
+  useMainView,
 } from './store/selectors';
 import { useIPC } from './hooks/useIPC';
 import { useWindowSize } from './hooks/useWindowSize';
@@ -38,6 +39,11 @@ const ConfigModal = lazy(() =>
 const SettingsPanel = lazy(() =>
   import('./components/SettingsPanel').then((module) => ({ default: module.SettingsPanel }))
 );
+const OfficeWorkspaceView = lazy(() =>
+  import('./components/OfficeWorkspaceView').then((module) => ({
+    default: module.OfficeWorkspaceView,
+  }))
+);
 
 function MainPanelFallback() {
   return (
@@ -62,6 +68,7 @@ function App() {
   const settings = useSettings();
   const systemDarkMode = useSystemDarkMode();
   const { showSettings } = useSettingsState();
+  const mainView = useMainView();
   const { sidebarCollapsed } = useLayoutState();
   const { showConfigModal, isConfigured, appConfig } = useConfigModalState();
   const globalNotice = useGlobalNotice();
@@ -190,6 +197,16 @@ function App() {
                 <SettingsPanel onClose={() => setShowSettings(false)} />
               </Suspense>
             </PanelErrorBoundary>
+          ) : mainView === 'office' ? (
+            <PanelErrorBoundary
+              name="OfficeWorkspaceView"
+              resetKey="office"
+              fallback={<MainPanelFallback />}
+            >
+              <Suspense fallback={<MainPanelFallback />}>
+                <OfficeWorkspaceView />
+              </Suspense>
+            </PanelErrorBoundary>
           ) : activeSessionId ? (
             <PanelErrorBoundary
               name="ChatView"
@@ -206,7 +223,7 @@ function App() {
         </main>
 
         {/* Context Panel - only show when in session and not in settings */}
-        {activeSessionId && !showSettings && (
+        {activeSessionId && !showSettings && mainView === 'chat' && (
           <PanelErrorBoundary
             name="ContextPanel"
             resetKey={activeSessionId}

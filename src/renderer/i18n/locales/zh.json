@@ -20,7 +20,8 @@
     "install": "安装",
     "optional": "可选",
     "appLogoAlt": "AI 搭档标志",
-    "pastedImageAlt": "粘贴图片 {{index}}"
+    "pastedImageAlt": "粘贴图片 {{index}}",
+    "remove": "移除"
   },
   "welcome": {
     "title": "今天我能为您做些什么？",
@@ -48,6 +49,119 @@
     "quickPromptNotion": "帮我调研三篇与 agents 相关、具有代表性的综述论文，并将它们添加到一个名为“Agent Survey”的 Notion 页面下。每篇论文请包含标题、作者、发表 venue/year，以及主要贡献的简短总结。",
     "apiNotConfigured": "API 尚未配置，请前往设置页面填写 API 提供商和密钥。",
     "goToSettings": "前往设置"
+  },
+  "office": {
+    "title": "办公任务",
+    "nav": "办公",
+    "freeChat": "聊天",
+    "refresh": "刷新",
+    "template": "模板",
+    "taskTitle": "任务标题",
+    "workingFolder": "工作文件夹",
+    "selectFolder": "选择文件夹",
+    "inputFiles": "输入文件",
+    "addFiles": "添加文件",
+    "noFiles": "尚未选择文件",
+    "taskOptions": "任务选项",
+    "outputFormat": "输出格式",
+    "language": "语言",
+    "detailLevel": "深度",
+    "audience": "受众",
+    "audiencePlaceholder": "老板、客户、团队...",
+    "safety": "安全确认",
+    "safetyReadFiles": "Agent 可以读取 {{count}} 个已选文件。",
+    "safetyWriteOutput": "生成文件应写入 {{outputDir}}。",
+    "safetyConfirm": "我确认本任务的输入文件和输出文件夹。",
+    "startTask": "启动任务",
+    "noTaskSelected": "选择一个任务",
+    "history": "任务历史",
+    "noHistory": "暂无办公任务",
+    "openSession": "打开会话",
+    "openOutputDir": "打开输出",
+    "retryTask": "重试",
+    "useAsTemplate": "套用配置",
+    "copiedToComposer": "已将任务配置复制到创建区。",
+    "cancelTask": "停止",
+    "progress": "进度",
+    "noProgress": "暂无进度",
+    "artifacts": "产物",
+    "refreshArtifacts": "刷新产物",
+    "noArtifacts": "暂无产物",
+    "noArtifactsRunning": "任务写入文件后，产物会显示在这里。",
+    "noArtifactsFailed": "未找到生成产物，请打开会话进度查看原因。",
+    "revealArtifact": "显示产物",
+    "previewArtifact": "预览",
+    "renameArtifact": "重命名",
+    "deleteArtifact": "删除",
+    "renameArtifactPrompt": "重命名产物",
+    "deleteArtifactConfirm": "删除 {{name}}？",
+    "previewUnsupported": "此文件类型暂不支持预览。",
+    "previewTruncated": "预览内容已截断",
+    "outputFormats": {
+      "auto": "自动",
+      "markdown": "Markdown",
+      "docx": "DOCX",
+      "pdf": "PDF",
+      "xlsx": "XLSX",
+      "pptx": "PPTX"
+    },
+    "languages": {
+      "auto": "自动",
+      "zh": "中文",
+      "en": "英文"
+    },
+    "detailLevels": {
+      "brief": "简要",
+      "standard": "标准",
+      "deep": "深入"
+    },
+    "status": {
+      "pending": "等待中",
+      "running": "运行中",
+      "completed": "已完成",
+      "error": "错误",
+      "cancelled": "已取消"
+    },
+    "templates": {
+      "file_summary": {
+        "title": "文件总结",
+        "description": "将选中文档总结成适合业务阅读的摘要。"
+      },
+      "pdf_summary": {
+        "title": "PDF 摘要",
+        "description": "从 PDF 中提取要点、风险、日期和行动项。"
+      },
+      "spreadsheet_analysis": {
+        "title": "表格分析",
+        "description": "分析 Excel 或 CSV 数据并生成业务发现。"
+      },
+      "report_generation": {
+        "title": "报告生成",
+        "description": "根据选中的来源文件生成 DOCX 业务报告。"
+      },
+      "deck_generation": {
+        "title": "演示文稿",
+        "description": "根据文档和数据生成 PPTX 演示稿。"
+      }
+    },
+    "errors": {
+      "loadTasks": "加载办公任务失败",
+      "loadTask": "加载任务详情失败",
+      "selectFiles": "选择文件失败",
+      "selectFolder": "选择文件夹失败",
+      "missingFolder": "请先选择工作文件夹。",
+      "missingFiles": "请至少选择一个输入文件。",
+      "safetyRequired": "启动前请确认输入文件和输出文件夹。",
+      "startTask": "启动任务失败",
+      "cancelTask": "停止任务失败",
+      "retryTask": "重试任务失败",
+      "refreshArtifacts": "刷新产物失败",
+      "previewArtifact": "预览产物失败",
+      "renameArtifact": "重命名产物失败",
+      "deleteArtifact": "删除产物失败",
+      "revealArtifact": "显示产物失败",
+      "revealOutputDir": "打开输出文件夹失败"
+    }
   },
   "settings": {
     "title": "设置",
@@ -273,6 +387,10 @@
         "minimax": {
           "name": "MiniMax",
           "note": "除非网关文档明确说明其他协议，否则优先按 OpenAI 兼容协议配置。"
+        },
+        "myClaudeProxy": {
+          "name": "我的 Claude 中转",
+          "note": "个人 Claude 中转站 (api.uuhfn.cloud)，使用 Anthropic 兼容协议。注意：部分中转会屏蔽 SDK 的 User-Agent 头，如果看到 403 'Your request was blocked' 错误，说明中转拒绝了官方 SDK 的调用。"
         },
         "genericOpenAI": {
           "name": "通用 OpenAI 兼容服务",

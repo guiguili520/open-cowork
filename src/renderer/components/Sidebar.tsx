@@ -31,10 +31,12 @@ export function Sidebar() {
   const activeSessionId = useAppStore((s) => s.activeSessionId);
   const settings = useAppStore((s) => s.settings);
   const sessionStates = useAppStore((s) => s.sessionStates);
+  const mainView = useAppStore((s) => s.mainView);
   const setActiveSession = useAppStore((s) => s.setActiveSession);
   const setMessages = useAppStore((s) => s.setMessages);
   const setTraceSteps = useAppStore((s) => s.setTraceSteps);
   const updateSettings = useAppStore((s) => s.updateSettings);
+  const setMainView = useAppStore((s) => s.setMainView);
   const isConfigured = useAppStore((s) => s.isConfigured);
   const sidebarCollapsed = useAppStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useAppStore((s) => s.toggleSidebar);
@@ -150,6 +152,7 @@ export function Sidebar() {
   const handleSessionClick = useCallback(
     async (sessionId: string) => {
       setShowSettings(false);
+      setMainView('chat');
 
       if (activeSessionId === sessionId) return;
 
@@ -187,11 +190,18 @@ export function Sidebar() {
       setMessages,
       setShowSettings,
       setTraceSteps,
+      setMainView,
     ]
   );
 
   const handleNewSession = () => {
+    setMainView('chat');
     setActiveSession(null);
+    setShowSettings(false);
+  };
+
+  const handleOfficeTasks = () => {
+    setMainView('office');
     setShowSettings(false);
   };
 
@@ -227,9 +237,20 @@ export function Sidebar() {
             <ChevronRight className="w-4 h-4" />
           </button>
           <button
+            onClick={handleOfficeTasks}
+            className={`w-9 h-9 rounded-2xl flex items-center justify-center transition-colors ${
+              mainView === 'office'
+                ? 'bg-accent-muted text-accent'
+                : 'hover:bg-surface-hover text-text-secondary'
+            }`}
+            title={t('office.nav')}
+          >
+            <ListChecks className="w-4 h-4" />
+          </button>
+          <button
             onClick={handleNewSession}
             className="w-9 h-9 rounded-2xl flex items-center justify-center bg-background hover:bg-surface-hover transition-colors text-text-primary border border-border-subtle"
-            title={t('sidebar.newTask')}
+            title={t('office.freeChat')}
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -293,13 +314,30 @@ export function Sidebar() {
           </button>
         </div>
 
-        <button
-          onClick={handleNewSession}
-          className="mt-3 w-full flex items-center gap-2 rounded-xl bg-background/60 px-3 py-2 text-left text-text-primary hover:bg-surface-hover transition-colors"
-        >
-          <Plus className="w-4 h-4 text-text-secondary flex-shrink-0" />
-          <span className="text-[13px] font-medium">{t('sidebar.newTask')}</span>
-        </button>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <button
+            onClick={handleOfficeTasks}
+            className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-[13px] font-medium transition-colors ${
+              mainView === 'office'
+                ? 'bg-accent-muted text-accent'
+                : 'bg-background/60 text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+            }`}
+          >
+            <ListChecks className="w-4 h-4 flex-shrink-0" />
+            <span className="truncate">{t('office.nav')}</span>
+          </button>
+          <button
+            onClick={handleNewSession}
+            className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-[13px] font-medium transition-colors ${
+              mainView === 'chat'
+                ? 'bg-accent-muted text-accent'
+                : 'bg-background/60 text-text-secondary hover:bg-surface-hover hover:text-text-primary'
+            }`}
+          >
+            <Plus className="w-4 h-4 flex-shrink-0" />
+            <span className="truncate">{t('office.freeChat')}</span>
+          </button>
+        </div>
 
         {sessions.length > 0 && (
           <div className="mt-2 flex items-center gap-2">

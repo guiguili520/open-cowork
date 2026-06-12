@@ -20,7 +20,8 @@
     "install": "Install",
     "optional": "optional",
     "appLogoAlt": "Sidekick logo",
-    "pastedImageAlt": "Pasted {{index}}"
+    "pastedImageAlt": "Pasted {{index}}",
+    "remove": "Remove"
   },
   "welcome": {
     "title": "How can I help you today?",
@@ -48,6 +49,119 @@
     "quickPromptNotion": "Help me research three representative survey papers related to agents, and add them under a Notion page titled \"Agent Survey\". For each paper, include the title, authors, publication venue/year, and a brief summary of the main contributions.",
     "apiNotConfigured": "API not configured yet. Please go to Settings to set up your API provider and key.",
     "goToSettings": "Go to Settings"
+  },
+  "office": {
+    "title": "Office Tasks",
+    "nav": "Office",
+    "freeChat": "Chat",
+    "refresh": "Refresh",
+    "template": "Template",
+    "taskTitle": "Task title",
+    "workingFolder": "Working folder",
+    "selectFolder": "Select folder",
+    "inputFiles": "Input files",
+    "addFiles": "Add files",
+    "noFiles": "No files selected",
+    "taskOptions": "Task options",
+    "outputFormat": "Output format",
+    "language": "Language",
+    "detailLevel": "Detail",
+    "audience": "Audience",
+    "audiencePlaceholder": "Manager, client, team...",
+    "safety": "Safety",
+    "safetyReadFiles": "The agent can read {{count}} selected file(s).",
+    "safetyWriteOutput": "Generated files should be written to {{outputDir}}.",
+    "safetyConfirm": "I confirm the selected files and output folder for this task.",
+    "startTask": "Start task",
+    "noTaskSelected": "Select a task",
+    "history": "Task history",
+    "noHistory": "No office tasks yet",
+    "openSession": "Open session",
+    "openOutputDir": "Open output",
+    "retryTask": "Retry",
+    "useAsTemplate": "Use as template",
+    "copiedToComposer": "Task settings copied to the composer.",
+    "cancelTask": "Stop",
+    "progress": "Progress",
+    "noProgress": "No progress yet",
+    "artifacts": "Artifacts",
+    "refreshArtifacts": "Refresh artifacts",
+    "noArtifacts": "No artifacts yet",
+    "noArtifactsRunning": "Artifacts will appear here as the task writes files.",
+    "noArtifactsFailed": "No generated artifacts were found. Open the session trace for details.",
+    "revealArtifact": "Reveal artifact",
+    "previewArtifact": "Preview",
+    "renameArtifact": "Rename",
+    "deleteArtifact": "Delete",
+    "renameArtifactPrompt": "Rename artifact",
+    "deleteArtifactConfirm": "Delete {{name}}?",
+    "previewUnsupported": "Preview is not available for this file type.",
+    "previewTruncated": "Preview truncated",
+    "outputFormats": {
+      "auto": "Auto",
+      "markdown": "Markdown",
+      "docx": "DOCX",
+      "pdf": "PDF",
+      "xlsx": "XLSX",
+      "pptx": "PPTX"
+    },
+    "languages": {
+      "auto": "Auto",
+      "zh": "Chinese",
+      "en": "English"
+    },
+    "detailLevels": {
+      "brief": "Brief",
+      "standard": "Standard",
+      "deep": "Deep"
+    },
+    "status": {
+      "pending": "Pending",
+      "running": "Running",
+      "completed": "Completed",
+      "error": "Error",
+      "cancelled": "Cancelled"
+    },
+    "templates": {
+      "file_summary": {
+        "title": "File summary",
+        "description": "Summarize selected documents into a business-ready brief."
+      },
+      "pdf_summary": {
+        "title": "PDF summary",
+        "description": "Extract key points, risks, dates, and action items from PDFs."
+      },
+      "spreadsheet_analysis": {
+        "title": "Spreadsheet analysis",
+        "description": "Analyze Excel or CSV data and generate business findings."
+      },
+      "report_generation": {
+        "title": "Report generation",
+        "description": "Create a DOCX business report from selected source files."
+      },
+      "deck_generation": {
+        "title": "Presentation deck",
+        "description": "Generate a PPTX deck from selected documents and data."
+      }
+    },
+    "errors": {
+      "loadTasks": "Failed to load office tasks",
+      "loadTask": "Failed to load task detail",
+      "selectFiles": "Failed to select files",
+      "selectFolder": "Failed to select folder",
+      "missingFolder": "Select a working folder first.",
+      "missingFiles": "Select at least one input file.",
+      "safetyRequired": "Confirm the selected files and output folder before starting.",
+      "startTask": "Failed to start task",
+      "cancelTask": "Failed to stop task",
+      "retryTask": "Failed to retry task",
+      "refreshArtifacts": "Failed to refresh artifacts",
+      "previewArtifact": "Failed to preview artifact",
+      "renameArtifact": "Failed to rename artifact",
+      "deleteArtifact": "Failed to delete artifact",
+      "revealArtifact": "Failed to reveal artifact",
+      "revealOutputDir": "Failed to open output folder"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -273,6 +387,10 @@
         "minimax": {
           "name": "MiniMax",
           "note": "Use OpenAI-compatible mode unless your MiniMax gateway documents another protocol."
+        },
+        "myClaudeProxy": {
+          "name": "My Claude Proxy",
+          "note": "Personal Claude relay (api.uuhfn.cloud). Anthropic-compatible protocol. Note: some relays block SDK User-Agent headers — if you see 403 'Your request was blocked', the relay is rejecting official SDK calls."
         },
         "genericOpenAI": {
           "name": "Generic OpenAI-compatible",

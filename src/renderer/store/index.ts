@@ -10,11 +10,14 @@ import type {
   SandboxSetupProgress,
   SandboxSyncStatus,
   SkillsStorageChangeEvent,
+  OfficeTask,
+  OfficeTaskWithArtifacts,
 } from '../types';
 import { applySessionUpdate } from '../utils/session-update';
 
 export type GlobalNoticeType = 'info' | 'warning' | 'error' | 'success';
 export type GlobalNoticeAction = 'open_api_settings';
+export type MainView = 'office' | 'chat';
 
 export interface GlobalNotice {
   id: string;
@@ -81,6 +84,7 @@ interface AppState {
   sessionStates: Record<string, SessionState>;
 
   // UI state
+  mainView: MainView;
   isLoading: boolean;
   sidebarCollapsed: boolean;
   contextPanelCollapsed: boolean;
@@ -105,6 +109,10 @@ interface AppState {
 
   // Working directory
   workingDir: string | null;
+
+  // Office tasks
+  officeTasks: OfficeTask[];
+  officeTaskDetails: Record<string, OfficeTaskWithArtifacts>;
 
   // Sandbox setup
   sandboxSetupProgress: SandboxSetupProgress | null;
@@ -148,6 +156,7 @@ interface AppState {
   setTraceSteps: (sessionId: string, steps: TraceStep[]) => void;
 
   setLoading: (loading: boolean) => void;
+  setMainView: (view: MainView) => void;
   toggleSidebar: () => void;
   toggleContextPanel: () => void;
   setSidebarCollapsed: (collapsed: boolean) => void;
@@ -172,6 +181,10 @@ interface AppState {
 
   // Working directory actions
   setWorkingDir: (path: string | null) => void;
+
+  // Office task actions
+  setOfficeTasks: (tasks: OfficeTask[]) => void;
+  upsertOfficeTaskDetail: (detail: OfficeTaskWithArtifacts) => void;
 
   // Sandbox setup actions
   setSandboxSetupProgress: (progress: SandboxSetupProgress | null) => void;
@@ -222,6 +235,7 @@ export const useAppStore = create<AppState>((set) => ({
   sessions: [],
   activeSessionId: null,
   sessionStates: {},
+  mainView: 'office',
   isLoading: false,
   sidebarCollapsed: false,
   contextPanelCollapsed: false,
@@ -236,6 +250,8 @@ export const useAppStore = create<AppState>((set) => ({
   hasSeenInitialConfigStatus: false,
   globalNotice: null,
   workingDir: null,
+  officeTasks: [],
+  officeTaskDetails: {},
   sandboxSetupProgress: null,
   isSandboxSetupComplete: false,
   sandboxSyncStatus: null,
@@ -256,13 +272,28 @@ export const useAppStore = create<AppState>((set) => ({
     })),
 
   updateSession: (sessionId, updates) =>
-    set((state) => ({
-      sessions: applySessionUpdate(state.sessions, sessionId, updates),
-    })),
+    set((state) => {
+      const hadSession = state.sessions.some((session) => session.id === sessionId);
+      const sessions = applySessionUpdate(state.sessions, sessionId, updates);
+      const hasInsertedSession =
+        !hadSession && sessions.some((session) => session.id === sessionId);
+      return {
+        sessions,
+        ...(hasInsertedSession && !state.sessionStates[sessionId]
+          ? {
+              sessionStates: {
+                ...state.sessionStates,
+                [sessionId]: { ...DEFAULT_SESSION_STATE },
+              },
+            }
+          : {}),
+      };
+    }),
 
   removeSession: (sessionId) =>
     set((state) => {
-      const { [sessionId]: _, ...restSessionStates } = state.sessionStates;
+      const restSessionStates = { ...state.sessionStates };
+      delete restSessionStates[sessionId];
       return {
         sessions: state.sessions.filter((s) => s.id !== sessionId),
         sessionStates: restSessionStates,
@@ -535,6 +566,7 @@ export const useAppStore = create<AppState>((set) => ({
 
   // UI actions
   setLoading: (loading) => set({ isLoading: loading }),
+  setMainView: (view) => set({ mainView: view }),
   toggleSidebar: () => set((state) => ({ sidebarCollapsed: !state.sidebarCollapsed })),
   toggleContextPanel: () =>
     set((state) => ({ contextPanelCollapsed: !state.contextPanelCollapsed })),
@@ -576,6 +608,20 @@ export const useAppStore = create<AppState>((set) => ({
 
   // Working directory actions
   setWorkingDir: (path) => set({ workingDir: path }),
+
+  // Office task actions
+  setOfficeTasks: (tasks) => set({ officeTasks: tasks }),
+  upsertOfficeTaskDetail: (detail) =>
+    set((state) => ({
+      officeTasks: [
+        detail.task,
+        ...state.officeTasks.filter((task) => task.id !== detail.task.id),
+      ].sort((a, b) => b.updatedAt - a.updatedAt),
+      officeTaskDetails: {
+        ...state.officeTaskDetails,
+        [detail.task.id]: detail,
+      },
+    })),
 
   // Sandbox setup actions
   setSandboxSetupProgress: (progress) => set({ sandboxSetupProgress: progress }),

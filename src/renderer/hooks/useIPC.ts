@@ -259,6 +259,10 @@ export function useIPC() {
             store.setSkillsStorageChangedAt(Date.now());
             break;
 
+          case 'office-task.update':
+            store.upsertOfficeTaskDetail(event.payload);
+            break;
+
           case 'workdir.changed':
             console.log('[useIPC] workdir.changed received:', event.payload.path);
             store.setWorkingDir(event.payload.path || null);
@@ -294,6 +298,7 @@ export function useIPC() {
             break;
 
           case 'new-session':
+            store.setMainView('chat');
             store.setActiveSession(null);
             store.setShowSettings(false);
             break;

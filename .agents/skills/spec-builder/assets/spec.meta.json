@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "",
+    "created_at": "",
+    "updated_at": ""
+  },
+  "mode": "guide",
+  "sections": {
+    "1_overview": { "title": "项目概述", "status": "empty", "priority": 1 },
+    "2_background": { "title": "背景与问题", "status": "empty", "priority": 3 },
+    "3_goals": { "title": "目标与非目标", "status": "empty", "priority": 1 },
+    "4_user_stories": { "title": "用户故事", "status": "empty", "priority": 1 },
+    "5_features": { "title": "功能需求", "status": "empty", "priority": 2 },
+    "6_nfr": { "title": "非功能需求", "status": "empty", "priority": 3 },
+    "7_constraints": { "title": "技术约束", "status": "empty", "priority": 2 },
+    "8_milestones": { "title": "里程碑与开放问题", "status": "empty", "priority": 3 }
+  },
+  "counters": {
+    "F": 0,
+    "U": 0,
+    "N": 0,
+    "C": 0,
+    "Q": 0,
+    "G": 0,
+    "NG": 0,
+    "R": 0
+  },
+  "history": []
+}

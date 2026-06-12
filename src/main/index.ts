@@ -59,6 +59,8 @@ import {
   type ScheduledTaskUpdateInput,
 } from './schedule/scheduled-task-manager';
 import { createScheduledTaskStore } from './schedule/scheduled-task-store';
+import { OfficeTaskService } from './office/office-task-service';
+import { createOfficeTaskStore } from './office/office-task-store';
 import {
   buildScheduledTaskFallbackTitle,
   buildScheduledTaskTitle,
@@ -85,6 +87,13 @@ import {
 } from './utils/logger';
 import { listRecentWorkspaceFiles } from './utils/recent-workspace-files';
 import { buildDiagnosticsSummary } from './utils/diagnostics-summary';
+import { installDecoyUserAgent } from './utils/decoy-user-agent';
+import type {
+  OfficeArtifactDeleteInput,
+  OfficeArtifactPreviewInput,
+  OfficeArtifactRenameInput,
+  OfficeTaskStartInput,
+} from '../shared/office-tasks';
 
 // Current working directory (persisted between sessions)
 let currentWorkingDir: string | null = null;
@@ -98,6 +107,11 @@ if (dotenvResult.error) {
 } else {
   log('[dotenv] Loaded successfully');
 }
+
+// Install global User-Agent decoy so SDK requests sneak past relays that
+// block official Anthropic/OpenAI SDK User-Agent strings. Must run before
+// any outbound fetch is issued. Opt out with SIDEKICK_DISABLE_DECOY_UA=1.
+installDecoyUserAgent();
 
 // Apply saved config (this overrides .env if config exists)
 if (configStore.isConfigured()) {
@@ -114,6 +128,7 @@ let skillsManager: SkillsManager | null = null;
 let pluginRuntimeService: PluginRuntimeService | null = null;
 let memoryService: MemoryService | null = null;
 let scheduledTaskManager: ScheduledTaskManager | null = null;
+let officeTaskService: OfficeTaskService | null = null;
 
 function sanitizeDiagnosticBaseUrl(value: string | undefined): string | null {
   if (!value) {
@@ -677,6 +692,12 @@ async function startSandboxBootstrap(): Promise<void> {
 
 // 发送事件到渲染进程（含远程会话拦截）
 function sendToRenderer(event: ServerEvent) {
+  try {
+    officeTaskService?.handleServerEvent(event);
+  } catch (error) {
+    logError('[OfficeTask] Failed to handle server event:', error);
+  }
+
   const payload =
     'payload' in event
       ? (event.payload as { sessionId?: string; [key: string]: unknown })
@@ -839,6 +860,11 @@ app
     // Initialize session manager before creating an interactive window.
     // This avoids session.start racing the startup path and hitting a null manager.
     sessionManager = new SessionManager(db, sendToRenderer, pluginRuntimeService, extensionManager);
+    officeTaskService = new OfficeTaskService({
+      store: createOfficeTaskStore(db),
+      sessionManager,
+      sendToRenderer,
+    });
     skillsManager = new SkillsManager(db, {
       getConfiguredGlobalSkillsPath: () => configStore.get('globalSkillsPath') || '',
       setConfiguredGlobalSkillsPath: (nextPath: string) => {
@@ -1385,6 +1411,94 @@ ipcMain.handle('dialog.selectFiles', async () => {
   }
 
   return result.filePaths;
+});
+
+ipcMain.handle('dialog.selectTaskFiles', async () => {
+  const properties: Array<'openFile' | 'multiSelections'> = ['openFile', 'multiSelections'];
+  const options = {
+    properties,
+    title: 'Select task files',
+  };
+  const result = mainWindow
+    ? await dialog.showOpenDialog(mainWindow, options)
+    : await dialog.showOpenDialog(options);
+
+  if (result.canceled) {
+    return [];
+  }
+
+  return result.filePaths;
+});
+
+ipcMain.handle('officeTasks.list', () => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.list();
+});
+
+ipcMain.handle('officeTasks.get', (_event, taskId: string) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.get(taskId);
+});
+
+ipcMain.handle('officeTasks.start', async (_event, payload: OfficeTaskStartInput) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  const unsupportedReason = getWorkspacePathUnsupportedReason(payload.cwd);
+  if (unsupportedReason) {
+    throw new Error(unsupportedReason);
+  }
+  return officeTaskService.start(payload);
+});
+
+ipcMain.handle('officeTasks.cancel', (_event, taskId: string) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.cancel(taskId);
+});
+
+ipcMain.handle('officeTasks.retry', (_event, taskId: string) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.retry(taskId);
+});
+
+ipcMain.handle('officeTasks.refreshArtifacts', (_event, taskId: string) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.refreshArtifacts(taskId);
+});
+
+ipcMain.handle('officeTasks.previewArtifact', (_event, payload: OfficeArtifactPreviewInput) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.previewArtifact(payload.taskId, payload.artifactId);
+});
+
+ipcMain.handle('officeTasks.renameArtifact', (_event, payload: OfficeArtifactRenameInput) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.renameArtifact(payload.taskId, payload.artifactId, payload.name);
+});
+
+ipcMain.handle('officeTasks.deleteArtifact', (_event, payload: OfficeArtifactDeleteInput) => {
+  if (!officeTaskService) {
+    throw new Error('Office task service not initialized');
+  }
+  return officeTaskService.deleteArtifact(payload.taskId, payload.artifactId);
+});
+
+ipcMain.handle('officeTasks.revealArtifact', async (_event, filePath: string) => {
+  return revealFileInFolder(filePath);
 });
 
 // Config IPC handlers

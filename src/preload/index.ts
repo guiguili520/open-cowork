@@ -25,6 +25,10 @@ import type {
   MemoryDebugFileInfo,
   MemoryDebugFileContent,
   MemoryInspectSessionResult,
+  OfficeArtifactPreview,
+  OfficeTask,
+  OfficeTaskStartInput,
+  OfficeTaskWithArtifacts,
 } from '../renderer/types';
 import type { DiagnosticInput, DiagnosticResult } from '../renderer/types';
 import type {
@@ -147,6 +151,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   // Select files using native dialog
   selectFiles: (): Promise<string[]> => ipcRenderer.invoke('dialog.selectFiles'),
+  dialog: {
+    selectTaskFiles: (): Promise<string[]> => ipcRenderer.invoke('dialog.selectTaskFiles'),
+  },
 
   artifacts: {
     listRecentFiles: (
@@ -155,6 +162,32 @@ contextBridge.exposeInMainWorld('electronAPI', {
       limit = 50
     ): Promise<Array<{ path: string; modifiedAt: number; size: number }>> =>
       ipcRenderer.invoke('artifacts.listRecentFiles', cwd, sinceMs, Math.min(limit, 500)),
+  },
+
+  officeTasks: {
+    list: (): Promise<OfficeTask[]> => ipcRenderer.invoke('officeTasks.list'),
+    get: (taskId: string): Promise<OfficeTaskWithArtifacts | null> =>
+      ipcRenderer.invoke('officeTasks.get', taskId),
+    start: (payload: OfficeTaskStartInput): Promise<OfficeTaskWithArtifacts> =>
+      ipcRenderer.invoke('officeTasks.start', payload),
+    cancel: (taskId: string): Promise<OfficeTaskWithArtifacts | null> =>
+      ipcRenderer.invoke('officeTasks.cancel', taskId),
+    retry: (taskId: string): Promise<OfficeTaskWithArtifacts> =>
+      ipcRenderer.invoke('officeTasks.retry', taskId),
+    refreshArtifacts: (taskId: string): Promise<OfficeTaskWithArtifacts | null> =>
+      ipcRenderer.invoke('officeTasks.refreshArtifacts', taskId),
+    previewArtifact: (taskId: string, artifactId: string): Promise<OfficeArtifactPreview | null> =>
+      ipcRenderer.invoke('officeTasks.previewArtifact', { taskId, artifactId }),
+    renameArtifact: (
+      taskId: string,
+      artifactId: string,
+      name: string
+    ): Promise<OfficeTaskWithArtifacts | null> =>
+      ipcRenderer.invoke('officeTasks.renameArtifact', { taskId, artifactId, name }),
+    deleteArtifact: (taskId: string, artifactId: string): Promise<OfficeTaskWithArtifacts | null> =>
+      ipcRenderer.invoke('officeTasks.deleteArtifact', { taskId, artifactId }),
+    revealArtifact: (filePath: string): Promise<boolean> =>
+      ipcRenderer.invoke('officeTasks.revealArtifact', filePath),
   },
 
   // Config methods
@@ -411,7 +444,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
 
   memory: {
-    getOverview: (cwd?: string): Promise<MemoryOverview> => ipcRenderer.invoke('memory.getOverview', cwd),
+    getOverview: (cwd?: string): Promise<MemoryOverview> =>
+      ipcRenderer.invoke('memory.getOverview', cwd),
     search: (payload: {
       query: string;
       cwd?: string;
@@ -424,7 +458,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.invoke('memory.rebuildWorkspace', cwd),
     clearWorkspace: (cwd: string): Promise<{ success: boolean; workspaceKey: string }> =>
       ipcRenderer.invoke('memory.clearWorkspace', cwd),
-    clearCoreMemory: (): Promise<{ success: boolean }> => ipcRenderer.invoke('memory.clearCoreMemory'),
+    clearCoreMemory: (): Promise<{ success: boolean }> =>
+      ipcRenderer.invoke('memory.clearCoreMemory'),
     rebuildAll: (): Promise<{ success: boolean; workspaceCount: number; sessionCount: number }> =>
       ipcRenderer.invoke('memory.rebuildAll'),
     listFiles: (): Promise<MemoryDebugFileInfo[]> => ipcRenderer.invoke('memory.listFiles'),
@@ -453,12 +488,37 @@ declare global {
       openExternal: (url: string) => Promise<boolean>;
       showItemInFolder: (filePath: string, cwd?: string) => Promise<boolean>;
       selectFiles: () => Promise<string[]>;
+      dialog: {
+        selectTaskFiles: () => Promise<string[]>;
+      };
       artifacts: {
         listRecentFiles: (
           cwd: string,
           sinceMs: number,
           limit?: number
         ) => Promise<Array<{ path: string; modifiedAt: number; size: number }>>;
+      };
+      officeTasks: {
+        list: () => Promise<OfficeTask[]>;
+        get: (taskId: string) => Promise<OfficeTaskWithArtifacts | null>;
+        start: (payload: OfficeTaskStartInput) => Promise<OfficeTaskWithArtifacts>;
+        cancel: (taskId: string) => Promise<OfficeTaskWithArtifacts | null>;
+        retry: (taskId: string) => Promise<OfficeTaskWithArtifacts>;
+        refreshArtifacts: (taskId: string) => Promise<OfficeTaskWithArtifacts | null>;
+        previewArtifact: (
+          taskId: string,
+          artifactId: string
+        ) => Promise<OfficeArtifactPreview | null>;
+        renameArtifact: (
+          taskId: string,
+          artifactId: string,
+          name: string
+        ) => Promise<OfficeTaskWithArtifacts | null>;
+        deleteArtifact: (
+          taskId: string,
+          artifactId: string
+        ) => Promise<OfficeTaskWithArtifacts | null>;
+        revealArtifact: (filePath: string) => Promise<boolean>;
       };
       config: {
         get: () => Promise<AppConfig>;
@@ -665,7 +725,11 @@ declare global {
         rebuildWorkspace: (cwd: string) => Promise<{ success: boolean; workspaceKey: string }>;
         clearWorkspace: (cwd: string) => Promise<{ success: boolean; workspaceKey: string }>;
         clearCoreMemory: () => Promise<{ success: boolean }>;
-        rebuildAll: () => Promise<{ success: boolean; workspaceCount: number; sessionCount: number }>;
+        rebuildAll: () => Promise<{
+          success: boolean;
+          workspaceCount: number;
+          sessionCount: number;
+        }>;
         listFiles: () => Promise<MemoryDebugFileInfo[]>;
         readFile: (filePath: string) => Promise<MemoryDebugFileContent>;
         inspectSession: (

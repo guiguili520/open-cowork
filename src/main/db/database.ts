@@ -46,6 +46,22 @@ export interface DatabaseInstance {
     delete: (id: string) => void;
   };
 
+  officeTasks: {
+    create: (task: OfficeTaskRow) => void;
+    update: (id: string, updates: Partial<OfficeTaskRow>) => void;
+    get: (id: string) => OfficeTaskRow | undefined;
+    getBySessionId: (sessionId: string) => OfficeTaskRow | undefined;
+    getAll: () => OfficeTaskRow[];
+    delete: (id: string) => void;
+  };
+
+  officeArtifacts: {
+    create: (artifact: OfficeArtifactRow) => void;
+    listByTaskId: (taskId: string) => OfficeArtifactRow[];
+    deleteByTaskId: (taskId: string) => void;
+    replaceForTask: (taskId: string, artifacts: OfficeArtifactRow[]) => void;
+  };
+
   // For compatibility with old interface
   prepare: (sql: string) => Database.Statement;
   exec: (sql: string) => void;
@@ -109,6 +125,34 @@ export interface ScheduledTaskRow {
   last_error: string | null;
   created_at: number;
   updated_at: number;
+}
+
+export interface OfficeTaskRow {
+  id: string;
+  title: string;
+  template_id: string;
+  status: string;
+  cwd: string;
+  input_paths: string;
+  output_dir: string;
+  session_id: string | null;
+  source_type: string;
+  external_ref: string | null;
+  options_json: string;
+  error: string | null;
+  created_at: number;
+  updated_at: number;
+  completed_at: number | null;
+}
+
+export interface OfficeArtifactRow {
+  id: string;
+  task_id: string;
+  path: string;
+  name: string;
+  type: string;
+  size: number;
+  created_at: number;
 }
 
 let db: DatabaseInstance | null = null;
@@ -347,6 +391,61 @@ function initializeSchema(database: Database.Database): void {
     ON scheduled_tasks(enabled, next_run_at)
   `);
 
+    database.exec(`
+    CREATE TABLE IF NOT EXISTS office_tasks (
+      id TEXT PRIMARY KEY,
+      title TEXT NOT NULL,
+      template_id TEXT NOT NULL,
+      status TEXT NOT NULL,
+      cwd TEXT NOT NULL,
+      input_paths TEXT NOT NULL,
+      output_dir TEXT NOT NULL,
+      session_id TEXT,
+      source_type TEXT NOT NULL DEFAULT 'local',
+      external_ref TEXT,
+      options_json TEXT NOT NULL DEFAULT '{}',
+      error TEXT,
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL,
+      completed_at INTEGER,
+      FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE SET NULL
+    )
+  `);
+    ensureColumn(
+      database,
+      'office_tasks',
+      'options_json',
+      "options_json TEXT NOT NULL DEFAULT '{}'"
+    );
+
+    database.exec(`
+    CREATE TABLE IF NOT EXISTS office_artifacts (
+      id TEXT PRIMARY KEY,
+      task_id TEXT NOT NULL,
+      path TEXT NOT NULL,
+      name TEXT NOT NULL,
+      type TEXT NOT NULL,
+      size INTEGER NOT NULL DEFAULT 0,
+      created_at INTEGER NOT NULL,
+      FOREIGN KEY (task_id) REFERENCES office_tasks(id) ON DELETE CASCADE
+    )
+  `);
+
+    database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_office_tasks_updated_at
+    ON office_tasks(updated_at DESC)
+  `);
+
+    database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_office_tasks_session_id
+    ON office_tasks(session_id)
+  `);
+
+    database.exec(`
+    CREATE INDEX IF NOT EXISTS idx_office_artifacts_task_id
+    ON office_artifacts(task_id)
+  `);
+
     log('[Database] Schema initialized');
   } catch (error) {
     logError('[Database] Schema initialization failed:', error);
@@ -506,6 +605,44 @@ export function initDatabase(): DatabaseInstance {
 
   const deleteScheduledTaskStmt = rawDb.prepare(`
     DELETE FROM scheduled_tasks WHERE id = ?
+  `);
+
+  const insertOfficeTask = rawDb.prepare(`
+    INSERT OR REPLACE INTO office_tasks (
+      id, title, template_id, status, cwd, input_paths, output_dir, session_id, source_type, external_ref, options_json, error, created_at, updated_at, completed_at
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const getOfficeTaskStmt = rawDb.prepare(`
+    SELECT * FROM office_tasks WHERE id = ?
+  `);
+
+  const getOfficeTaskBySessionStmt = rawDb.prepare(`
+    SELECT * FROM office_tasks WHERE session_id = ? LIMIT 1
+  `);
+
+  const getAllOfficeTasksStmt = rawDb.prepare(`
+    SELECT * FROM office_tasks ORDER BY updated_at DESC
+  `);
+
+  const deleteOfficeTaskStmt = rawDb.prepare(`
+    DELETE FROM office_tasks WHERE id = ?
+  `);
+
+  const insertOfficeArtifact = rawDb.prepare(`
+    INSERT OR REPLACE INTO office_artifacts (
+      id, task_id, path, name, type, size, created_at
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const listOfficeArtifactsByTaskStmt = rawDb.prepare(`
+    SELECT * FROM office_artifacts WHERE task_id = ? ORDER BY created_at ASC
+  `);
+
+  const deleteOfficeArtifactsByTaskStmt = rawDb.prepare(`
+    DELETE FROM office_artifacts WHERE task_id = ?
   `);
 
   db = {
@@ -702,6 +839,107 @@ export function initDatabase(): DatabaseInstance {
 
       delete: (id: string) => {
         deleteScheduledTaskStmt.run(id);
+      },
+    },
+
+    officeTasks: {
+      create: (task: OfficeTaskRow) => {
+        insertOfficeTask.run(
+          task.id,
+          task.title,
+          task.template_id,
+          task.status,
+          task.cwd,
+          task.input_paths,
+          task.output_dir,
+          task.session_id,
+          task.source_type,
+          task.external_ref,
+          task.options_json,
+          task.error,
+          task.created_at,
+          task.updated_at,
+          task.completed_at
+        );
+      },
+
+      update: (id: string, updates: Partial<OfficeTaskRow>) => {
+        const setClauses: string[] = [];
+        const values: unknown[] = [];
+
+        for (const [key, value] of Object.entries(updates)) {
+          if (value !== undefined) {
+            validateIdentifier(key);
+            setClauses.push(`${key} = ?`);
+            values.push(value);
+          }
+        }
+
+        if (setClauses.length === 0) return;
+
+        if (!Object.prototype.hasOwnProperty.call(updates, 'updated_at')) {
+          setClauses.push('updated_at = ?');
+          values.push(Date.now());
+        }
+        values.push(id);
+
+        const sql = `UPDATE office_tasks SET ${setClauses.join(', ')} WHERE id = ?`;
+        rawDb.prepare(sql).run(...values);
+      },
+
+      get: (id: string): OfficeTaskRow | undefined => {
+        return getOfficeTaskStmt.get(id) as OfficeTaskRow | undefined;
+      },
+
+      getBySessionId: (sessionId: string): OfficeTaskRow | undefined => {
+        return getOfficeTaskBySessionStmt.get(sessionId) as OfficeTaskRow | undefined;
+      },
+
+      getAll: (): OfficeTaskRow[] => {
+        return getAllOfficeTasksStmt.all() as OfficeTaskRow[];
+      },
+
+      delete: (id: string) => {
+        deleteOfficeTaskStmt.run(id);
+      },
+    },
+
+    officeArtifacts: {
+      create: (artifact: OfficeArtifactRow) => {
+        insertOfficeArtifact.run(
+          artifact.id,
+          artifact.task_id,
+          artifact.path,
+          artifact.name,
+          artifact.type,
+          artifact.size,
+          artifact.created_at
+        );
+      },
+
+      listByTaskId: (taskId: string): OfficeArtifactRow[] => {
+        return listOfficeArtifactsByTaskStmt.all(taskId) as OfficeArtifactRow[];
+      },
+
+      deleteByTaskId: (taskId: string) => {
+        deleteOfficeArtifactsByTaskStmt.run(taskId);
+      },
+
+      replaceForTask: (taskId: string, artifacts: OfficeArtifactRow[]) => {
+        rawDb.transaction(() => {
+          deleteOfficeArtifactsByTaskStmt.run(taskId);
+          for (const artifact of artifacts) {
+            insertOfficeArtifact.run(
+              artifact.id,
+              artifact.task_id,
+              artifact.path,
+              artifact.name,
+              artifact.type,
+              artifact.size,
+              artifact.created_at
+            );
+          }
+        })();
       },
     },
 

@@ -16,7 +16,15 @@
 
 import { useShallow } from 'zustand/react/shallow';
 import { useAppStore } from './index';
-import type { Session, Message, TraceStep, Settings, AppConfig } from '../types';
+import type {
+  Session,
+  Message,
+  TraceStep,
+  Settings,
+  AppConfig,
+  OfficeTask,
+  OfficeTaskWithArtifacts,
+} from '../types';
 import type { GlobalNotice, SessionExecutionClock } from './index';
 
 // ---------------------------------------------------------------------------
@@ -192,6 +200,11 @@ export function useLayoutState(): { sidebarCollapsed: boolean; contextPanelColla
   );
 }
 
+/** Returns the active top-level workspace view. */
+export function useMainView() {
+  return useAppStore((s) => s.mainView);
+}
+
 /** Returns whether the settings panel is open, plus the active tab. */
 export function useSettingsState(): { showSettings: boolean; settingsTab: string | null } {
   return useAppStore(
@@ -284,6 +297,16 @@ export function useGlobalNotice(): GlobalNotice | null {
 /** Returns the current working directory. */
 export function useWorkingDir(): string | null {
   return useAppStore((s) => s.workingDir);
+}
+
+/** Returns all office tasks shown in the office workspace. */
+export function useOfficeTasks(): OfficeTask[] {
+  return useAppStore((s) => s.officeTasks);
+}
+
+/** Returns cached office task details keyed by task id. */
+export function useOfficeTaskDetails(): Record<string, OfficeTaskWithArtifacts> {
+  return useAppStore((s) => s.officeTaskDetails);
 }
 
 /** Returns pending permission and sudo-password requests. */
