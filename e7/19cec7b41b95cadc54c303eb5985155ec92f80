@@ -1,0 +1,328 @@
+.agents/skills/xlsx/recalc.py
+  s_908f76b5cc809b::t_6905578804dcce 1-247
+.agents/skills/pdf/LICENSE.txt
+  s_908f76b5cc809b::t_6905578804dcce 1-30
+.agents/skills/docx/scripts/helpers/merge_runs.py
+  s_908f76b5cc809b::t_6905578804dcce 1-176
+src/main/office/office-task-service.ts
+  s_4b06c19a5ed0be::t_b99d138313430a 7-440
+  s_4b06c19a5ed0be::t_fe745d4a5a547c 598-623
+src/main/office/office-task-templates.ts
+  s_4b06c19a5ed0be::t_2d4c9818664a0c 3-225
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-2012.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-67
+.agents/skills/docx/scripts/ooxml/scripts/validation/redlining.py
+  s_908f76b5cc809b::t_6905578804dcce 1-283
+.agents/skills/docx/scripts/pack.py
+  s_908f76b5cc809b::t_6905578804dcce 1-162
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-customXmlSchemaProperties.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-18
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-documentPropertiesCustom.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-59
+.agents/skills/pdf/scripts/fill_fillable_fields.py
+  s_908f76b5cc809b::t_6905578804dcce 1-117
+.agents/skills/pdf/scripts/create_validation_image.py
+  s_908f76b5cc809b::t_6905578804dcce 1-41
+.agents/skills/docx/scripts/ooxml/schemas/ecma/fouth-edition/opc-digSig.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-49
+.agents/skills/pptx/scripts/thumbnail.py
+  s_908f76b5cc809b::t_6905578804dcce 1-453
+.agents/skills/skill-creator/scripts/package_skill.py
+  s_908f76b5cc809b::t_6905578804dcce 1-110
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-symex-2015.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-8
+.agents/skills/pptx/scripts/rearrange.py
+  s_908f76b5cc809b::t_6905578804dcce 1-231
+.agents/skills/spec-builder/references/example-saas.md
+  s_908f76b5cc809b::t_6905578804dcce 1-127
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/vml-spreadsheetDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-108
+src/tests/office/office-task-store.test.ts
+  s_4b06c19a5ed0be::t_e4d7dbcd8c895a 19-31
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-commonSimpleTypes.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-174
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/pml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-1676
+.agents/skills/pptx/ooxml/schemas/ecma/fouth-edition/opc-coreProperties.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-50
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-sdtdatahash-2020.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-4
+.agents/skills/skill-creator/scripts/quick_validate.py
+  s_908f76b5cc809b::t_6905578804dcce 1-103
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-lockedCanvas.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-11
+src/renderer/i18n/locales/en.json
+  s_4b06c19a5ed0be::t_5a2fb065250e7c 82-83
+  s_4b06c19a5ed0be::t_9a0e1dc855adbd 65-81,92-161
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-commonSimpleTypes.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-174
+.agents/skills/pptx/css.md
+  s_908f76b5cc809b::t_6905578804dcce 1-337
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/vml-spreadsheetDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-108
+.agents/skills/pptx/ooxml/scripts/validation/pptx.py
+  s_908f76b5cc809b::t_6905578804dcce 1-315
+.agents/skills/pptx/ooxml/scripts/validation/redlining.py
+  s_908f76b5cc809b::t_6905578804dcce 1-283
+.agents/skills/skill-creator/scripts/init_skill.py
+  s_908f76b5cc809b::t_6905578804dcce 1-303
+.agents/skills/docx/scripts/unpack.py
+  s_908f76b5cc809b::t_6905578804dcce 1-119
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-sdtdatahash-2020.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-4
+.agents/skills/docx/scripts/ooxml/scripts/validation/__init__.py
+  s_908f76b5cc809b::t_6905578804dcce 1-15
+.agents/skills/spec-builder/references/completeness.md
+  s_908f76b5cc809b::t_6905578804dcce 1-118
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/xml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-116
+.agents/skills/pptx/ooxml/schemas/mce/mc.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-75
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/vml-officeDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-509
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-bibliography.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-144
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-relationshipReference.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-25
+.agents/skills/pptx/ooxml/schemas/ecma/fouth-edition/opc-digSig.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-49
+.agents/skills/pptx/ooxml/scripts/validation/__init__.py
+  s_908f76b5cc809b::t_6905578804dcce 1-15
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-2018.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-14
+.agents/skills/spec-builder/references/red-flags.md
+  s_908f76b5cc809b::t_6905578804dcce 1-121
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/vml-presentationDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-12
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/vml-officeDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-509
+.agents/skills/docx/LICENSE.txt
+  s_908f76b5cc809b::t_6905578804dcce 1-30
+.agents/skills/docx/scripts/templates/people.xml
+  s_908f76b5cc809b::t_6905578804dcce 1-3
+src/renderer/types/index.ts
+  s_4b06c19a5ed0be::t_48978bd67a8479 4-12
+  s_4b06c19a5ed0be::t_352c95a10c75f9 1
+.agents/skills/docx/scripts/templates/commentsExtended.xml
+  s_908f76b5cc809b::t_6905578804dcce 1-3
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-spreadsheetDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-185
+.agents/skills/docx/scripts/templates/comments.xml
+  s_908f76b5cc809b::t_6905578804dcce 1-3
+.agents/skills/pptx/LICENSE.txt
+  s_908f76b5cc809b::t_6905578804dcce 1-30
+src/main/db/database.ts
+  s_4b06c19a5ed0be::t_653ee17ea96510 141-157,394-448,610-647,845-858
+src/main/index.ts
+  s_4b06c19a5ed0be::t_642713ac10afbd 91-96,111-115,131,695-700,863-867,1416-1497
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-diagram.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-1085
+.agents/skills/docx/scripts/ooxml/scripts/pack.py
+  s_908f76b5cc809b::t_6905578804dcce 1-159
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-chart.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-1499
+.agents/skills/docx/scripts/ooxml/scripts/validate.py
+  s_908f76b5cc809b::t_6905578804dcce 1-103
+.agents/skills/pdf/scripts/convert_pdf_to_images.py
+  s_908f76b5cc809b::t_6905578804dcce 1-35
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/vml-main.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-570
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/wml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-3646
+.agents/skills/docx/scripts/ooxml/schemas/ecma/fouth-edition/opc-coreProperties.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-50
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-documentPropertiesVariantTypes.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-195
+.agents/skills/pptx/scripts/replace.py
+  s_908f76b5cc809b::t_6905578804dcce 1-388
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-lockedCanvas.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-11
+.agents/skills/docx/scripts/ooxml/schemas/mce/mc.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-75
+.agents/skills/docx/scripts/ooxml/schemas/ecma/fouth-edition/opc-contentTypes.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-42
+src/shared/office-tasks.ts
+  s_4b06c19a5ed0be::t_a975014f0fbef2 21-113
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/pml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-1676
+.agents/skills/pdf/scripts/check_bounding_boxes.py
+  s_908f76b5cc809b::t_6905578804dcce 1-70
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-chart.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-1499
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-diagram.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-1085
+.agents/skills/pptx/ooxml/scripts/unpack.py
+  s_908f76b5cc809b::t_6905578804dcce 1-33
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-documentPropertiesExtended.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-56
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-picture.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-23
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-2010.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-560
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-documentPropertiesExtended.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-56
+.agents/skills/pdf/scripts/extract_form_field_info.py
+  s_908f76b5cc809b::t_6905578804dcce 1-152
+.agents/skills/pptx/ooxml/scripts/validation/base.py
+  s_908f76b5cc809b::t_6905578804dcce 1-1023
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-documentPropertiesCustom.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-59
+src/renderer/components/office/OfficeTaskPanels.tsx
+  s_4b06c19a5ed0be::t_bce8d5c0e3af6c 5-64,68-79,83-85,126-132,142-352
+  s_4b06c19a5ed0be::t_934641dfbb7071 65,80,108,133-141
+  s_4b06c19a5ed0be::t_dab094b8a01160 390-401
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-2010.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-560
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-customXmlSchemaProperties.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-18
+.agents/skills/skill-creator/LICENSE.txt
+  s_908f76b5cc809b::t_6905578804dcce 1-202
+.agents/skills/docx/scripts/templates/commentsExtensible.xml
+  s_908f76b5cc809b::t_6905578804dcce 1-3
+src/renderer/components/OfficeWorkspaceView.tsx
+  s_4b06c19a5ed0be::t_43eaa7045d5f4b 4-7,9-211,262-418,422-475
+  s_4b06c19a5ed0be::t_10aa5ae4aecc2b 8,215-228,419
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-customXmlDataProperties.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-25
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/wml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-3646
+.agents/skills/pptx/ooxml/scripts/pack.py
+  s_908f76b5cc809b::t_6905578804dcce 1-159
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/sml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-4439
+.agents/skills/docx/scripts/ooxml/scripts/validation/docx.py
+  s_908f76b5cc809b::t_6905578804dcce 1-369
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-math.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-582
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/sml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-4439
+.agents/skills/pptx/ooxml/schemas/ecma/fouth-edition/opc-relationships.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-33
+.agents/skills/pptx/ooxml/scripts/validation/docx.py
+  s_908f76b5cc809b::t_6905578804dcce 1-369
+.agents/skills/pdf/scripts/check_fillable_fields.py
+  s_908f76b5cc809b::t_6905578804dcce 1-12
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-cid-2016.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-13
+.agents/skills/pptx/ooxml/schemas/ecma/fouth-edition/opc-contentTypes.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-42
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-customXmlDataProperties.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-25
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/vml-presentationDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-12
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/shared-additionalCharacteristics.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-28
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-documentPropertiesVariantTypes.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-195
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/vml-main.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-570
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-picture.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-23
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-2018.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-14
+.agents/skills/docx/scripts/templates/commentsIds.xml
+  s_908f76b5cc809b::t_6905578804dcce 1-3
+.agents/skills/pptx/ooxml/scripts/validate.py
+  s_908f76b5cc809b::t_6905578804dcce 1-103
+.agents/skills/docx/scripts/ooxml/schemas/ecma/fouth-edition/opc-relationships.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-33
+.agents/skills/docx/scripts/ooxml/scripts/unpack.py
+  s_908f76b5cc809b::t_6905578804dcce 1-37
+.agents/skills/spec-builder/assets/spec.meta.json
+  s_908f76b5cc809b::t_6905578804dcce 1-30
+.agents/skills/docx/scripts/__init__.py
+  s_908f76b5cc809b::t_6905578804dcce 1
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/vml-wordprocessingDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-96
+.agents/skills/pdf/scripts/fill_pdf_form_with_annotations.py
+  s_908f76b5cc809b::t_6905578804dcce 1-108
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-wordprocessingDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-287
+src/preload/index.ts
+  s_4b06c19a5ed0be::t_4d73c2f1363c6c 28-31,154-156,167-192,447-448,461-462,491-493,501-520
+src/main/office/office-task-store.ts
+  s_4b06c19a5ed0be::t_91b333b5aee03d 4-222
+src/renderer/components/office/OfficeTaskComposer.tsx
+  s_4b06c19a5ed0be::t_5f95f7697ee7f4 2-314
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/vml-wordprocessingDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-96
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-cid-2016.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-13
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-relationshipReference.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-25
+.agents/skills/pptx/scripts/inventory.py
+  s_908f76b5cc809b::t_6905578804dcce 1-1020
+.agents/skills/docx/scripts/ooxml/scripts/validation/base.py
+  s_908f76b5cc809b::t_6905578804dcce 1-1023
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-spreadsheetDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-185
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-main.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-3081
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-cex-2018.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-20
+.agents/skills/xlsx/LICENSE.txt
+  s_908f76b5cc809b::t_6905578804dcce 1-30
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-wordprocessingDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-287
+src/tests/office/office-task-templates.test.ts
+  s_4b06c19a5ed0be::t_0db5dca59c7e9a 18-90
+.agents/skills/pptx/ooxml/schemas/ISO-IEC29500-4_2016/dml-chartDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-146
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-2012.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-67
+.agents/skills/docx/scripts/comment.py
+  s_908f76b5cc809b::t_6905578804dcce 1-341
+.agents/skills/docx/scripts/ooxml/scripts/validation/pptx.py
+  s_908f76b5cc809b::t_6905578804dcce 1-315
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-main.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-3081
+src/renderer/i18n/locales/zh.json
+  s_4b06c19a5ed0be::t_d4273334caf2bf 65-81,92-161
+  s_4b06c19a5ed0be::t_1d7e55e5a85338 82-83
+src/tests/store/session-state.test.ts
+  s_908f76b5cc809b::t_6905578804dcce 337-344
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-additionalCharacteristics.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-28
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-bibliography.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-144
+.agents/skills/docx/scripts/ooxml/schemas/microsoft/wml-symex-2015.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-8
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/dml-chartDrawing.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-146
+.agents/skills/spec-builder/references/export.md
+  s_908f76b5cc809b::t_6905578804dcce 1-121
+.agents/skills/pptx/ooxml/schemas/microsoft/wml-cex-2018.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-20
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/shared-math.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-582
+src/tests/office/office-task-service.test.ts
+  s_4b06c19a5ed0be::t_03bbbe265b082b 15-279
+.agents/skills/spec-builder/assets/spec.md
+  s_908f76b5cc809b::t_6905578804dcce 1-141
+.agents/skills/docx/scripts/ooxml/schemas/ISO-IEC29500-4_2016/xml.xsd
+  s_908f76b5cc809b::t_6905578804dcce 1-116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "e719cec7b41b95cadc54c303eb5985155ec92f80",
+  "prompts": {},
+  "sessions": {
+    "s_4b06c19a5ed0be": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019eab50-54bb-7a72-a349-d88752b7dc12",
+        "model": "gpt-5.5"
+      },
+      "human_author": "xiaofei <1980028437@qq.com>"
+    },
+    "s_908f76b5cc809b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c62bbbc-041d-4f84-adb1-0ce0a54e8f40",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "xiaofei <1980028437@qq.com>"
+    }
+  }
+}
