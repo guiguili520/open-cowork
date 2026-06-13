@@ -1,0 +1,60 @@
+src/main/office/office-task-service.ts
+  s_908f76b5cc809b::t_c900b4a77acfa4 13
+src/renderer/components/office/OfficeTaskProgress.tsx
+  s_908f76b5cc809b::t_214318bbdd9975 1-10,12-180
+  s_908f76b5cc809b::t_4fc3adfa3a0416 11
+src/renderer/i18n/locales/zh.json
+  s_908f76b5cc809b::t_7880dea02954ba 100-134,137-200
+  s_908f76b5cc809b::t_aa7e8ff45ea231 135-136
+src/renderer/utils/trace-activity.ts
+  s_908f76b5cc809b::t_14a43a2af4d11f 87,90,93,96,100-102
+  s_908f76b5cc809b::t_31350bdcd2b90a 1,3-26,33,38-48,54-86,88-89,91-92,94-95,97-99,103-123
+  s_908f76b5cc809b::t_2b79f6c3f097e0 27-32,34-37
+  s_908f76b5cc809b::t_a88ba3e7195ed9 2
+  s_908f76b5cc809b::t_e82df3ca95abce 49-53
+src/shared/office-task-progress.ts
+  s_908f76b5cc809b::t_65815ff8aa102c 89-97,101-102,105-107,123-125
+  s_908f76b5cc809b::t_5fecf704772dac 1-88,98-100,103-104,108-122,128-387
+src/renderer/components/office/OfficeTaskPanels.tsx
+  s_908f76b5cc809b::t_70e367529e9a8b 22-23
+  s_908f76b5cc809b::t_e2f39301275a80 19-20,155-166
+  s_908f76b5cc809b::t_4413e6699a983c 21
+src/renderer/components/office/OfficeArtifactList.tsx
+  s_908f76b5cc809b::t_bf1cd5cc3f8082 161-166
+  s_908f76b5cc809b::t_abc233792ee2d5 1-20,22-160,167-210
+  s_908f76b5cc809b::t_531a27fee19d74 21
+src/renderer/components/office/OfficeTaskComposer.tsx
+  s_908f76b5cc809b::t_807e103fe52f6f 80,91,105
+  s_908f76b5cc809b::t_8a389aeecf35ab 256
+  s_908f76b5cc809b::t_5ec86f59afcbe8 153,165,177,195
+  s_908f76b5cc809b::t_afbcb90124518f 204,210,229
+  s_908f76b5cc809b::t_cfc79a9fd7f5fe 300
+  s_908f76b5cc809b::t_238015d46c0d35 1,12-14
+src/renderer/i18n/locales/en.json
+  s_908f76b5cc809b::t_ed970b66d8917f 100-134,137-200
+  s_908f76b5cc809b::t_5ea3104bdb3fc4 135-136
+src/tests/office/trace-activity.test.ts
+  s_908f76b5cc809b::t_b452adc5a9cdb0 1-71,74-140
+  s_908f76b5cc809b::t_f939992138b0bc 72-73
+src/renderer/components/office/OfficePrimitives.tsx
+  s_908f76b5cc809b::t_312060f337fa32 1-21
+src/tests/office/office-task-progress.test.ts
+  s_908f76b5cc809b::t_99bf8312897d60 1-60,62-66,68-228,230,235-238,240,243-251,253,257-273
+  s_908f76b5cc809b::t_b08ee946517455 229,231-234,239,241-242,252,254-256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "4ff4a49b5b279b7a952bdd75ea1e5a041fa95eb9",
+  "prompts": {},
+  "sessions": {
+    "s_908f76b5cc809b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c62bbbc-041d-4f84-adb1-0ce0a54e8f40",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "xiaofei <1980028437@qq.com>"
+    }
+  }
+}
