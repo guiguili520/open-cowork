@@ -1,0 +1,75 @@
+ENTERPRISE.md
+  s_f06181fcea5f54::t_1680a0df73ed95 1-345
+src/main/utils/log-redaction.ts
+  s_908f76b5cc809b::t_3ac62d7b76f22b 1-12,16-37,42-54,56-117
+  s_908f76b5cc809b::t_49d70dbe1db551 13-15
+  s_95f7383f4cf116::t_2f238b811a0baf 38-41
+  s_908f76b5cc809b::t_d321d167f83f49 55
+src/renderer/i18n/locales/zh.json
+  s_d55e25510200ca::t_7086532553be7e 265-272
+src/tests/log-redaction.test.ts
+  s_908f76b5cc809b::t_78106250a75ca1 54-55,58
+  s_908f76b5cc809b::t_74689f35034346 1,3,5,8-47,104-105,108-120,140-141,144-184,191-192
+  s_95f7383f4cf116::t_a43e27f3cc2a3a 2,4,6-7,48-53,56-57,59-103,106-107,121-139,142-143,185-190
+src/tests/office/office-task-logging.test.ts
+  s_908f76b5cc809b::t_518a816849ef69 1-75
+src/renderer/components/office/OfficeTaskPanels.tsx
+  s_d55e25510200ca::t_46a0dbdfa18b7c 170
+  s_d55e25510200ca::t_a1698ba433b89a 19
+  s_d55e25510200ca::t_24d481f62f7d33 176-182
+src/tests/office/office-task-error-format.test.ts
+  s_d55e25510200ca::t_986d0457ed0396 1-139
+src/main/office/office-task-service.ts
+  s_908f76b5cc809b::t_cbbc4dbe9ddc94 132-135
+  s_908f76b5cc809b::t_e6c70f07016783 410-413
+  s_908f76b5cc809b::t_5e5853221a0c61 101-106,120
+  s_908f76b5cc809b::t_204723b3ae55c8 364-367
+  s_908f76b5cc809b::t_f91565e57ab07d 320-322,333,344-347
+  s_908f76b5cc809b::t_41e19c753fc29b 469-489
+  s_908f76b5cc809b::t_92cbb1a999bb74 22
+  s_908f76b5cc809b::t_4b53167eaabf62 21
+src/renderer/i18n/locales/en.json
+  s_d55e25510200ca::t_26333471a87d1b 265-272
+src/shared/office-task-error-format.ts
+  s_d55e25510200ca::t_ea01fc912db755 1-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "0fec8423bd0914aee720c9d773adacbdb84e2c14",
+  "prompts": {},
+  "sessions": {
+    "s_908f76b5cc809b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5c62bbbc-041d-4f84-adb1-0ce0a54e8f40",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    },
+    "s_95f7383f4cf116": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "594979e9-4494-49b0-9416-e8e1e9d84920",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "xiaofei <1980028437@qq.com>"
+    },
+    "s_d55e25510200ca": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3e1d4ac0-3b3c-44af-9283-05264c01b9ec",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "xiaofei <1980028437@qq.com>"
+    },
+    "s_f06181fcea5f54": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "45612c4f-40d6-485a-a037-eeaecc183647",
+        "model": "claude-haiku-4-5-20251001"
+      },
+      "human_author": "xiaofei <1980028437@qq.com>"
+    }
+  }
+}
