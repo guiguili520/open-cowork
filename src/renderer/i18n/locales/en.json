@@ -97,6 +97,107 @@
     "deleteArtifactConfirm": "Delete {{name}}?",
     "previewUnsupported": "Preview is not available for this file type.",
     "previewTruncated": "Preview truncated",
+    "currentStep": "Current step",
+    "details": "Activity log",
+    "resultLabel": "Deliverables",
+    "phases": {
+      "queued": "Queued",
+      "reading": "Reading files",
+      "analyzing": "Analyzing",
+      "generating": "Generating",
+      "done": "Done"
+    },
+    "activity": {
+      "reading": "Reading {{name}}",
+      "readingGeneric": "Reading source files",
+      "writing": "Writing {{name}}",
+      "writingGeneric": "Writing the deliverable",
+      "editing": "Editing {{name}}",
+      "editingGeneric": "Editing the deliverable",
+      "producedArtifact": "Produced {{name}}",
+      "producedArtifactGeneric": "Produced a file",
+      "searching": "Searching for \"{{query}}\"",
+      "searchingGeneric": "Searching the content",
+      "finding": "Locating files",
+      "listing": "Listing files",
+      "generatingFile": "Generating the {{format}} file",
+      "converting": "Converting the document",
+      "installingDeps": "Preparing tools",
+      "runningScript": "Running a script",
+      "runningCommand": "Working in the workspace",
+      "browsing": "Looking things up",
+      "planning": "Planning the steps",
+      "usingTool": "Using {{tool}}",
+      "thinking": "Analyzing the content",
+      "working": "Working"
+    },
+    "resultSummary": {
+      "deliverableSingle": "1 {{role}}",
+      "deliverableMany": "{{count}} files",
+      "fromInputs_one": "from {{count}} file",
+      "fromInputs_other": "from {{count}} files",
+      "line": "{{deliverable}} {{inputs}}",
+      "running": "Working… no files produced yet",
+      "cancelled": "Cancelled before producing files",
+      "error": "Failed — no files were produced",
+      "emptyCompleted": "Completed with no output files"
+    },
+    "artifactRoles": {
+      "generic": {
+        "document": "Document",
+        "presentation": "Presentation",
+        "spreadsheet": "Spreadsheet",
+        "pdf": "PDF",
+        "markdown": "Markdown",
+        "image": "Image",
+        "other": "File"
+      },
+      "file_summary": {
+        "document": "Summary",
+        "markdown": "Summary"
+      },
+      "pdf_summary": {
+        "document": "Executive summary",
+        "markdown": "Summary",
+        "pdf": "Source PDF"
+      },
+      "spreadsheet_analysis": {
+        "document": "Analysis report",
+        "markdown": "Analysis report",
+        "spreadsheet": "Derived workbook"
+      },
+      "report_generation": {
+        "document": "Business report",
+        "markdown": "Business report"
+      },
+      "deck_generation": {
+        "presentation": "Presentation deck",
+        "markdown": "Outline",
+        "document": "Speaker notes"
+      }
+    },
+    "artifactFormats": {
+      "docx": "DOCX",
+      "md": "Markdown",
+      "pdf": "PDF",
+      "xlsx": "XLSX",
+      "pptx": "PPTX",
+      "csv": "CSV",
+      "other": "File"
+    },
+    "primaryBadge": "Main deliverable",
+    "supportingBadge": "Supporting file",
+    "hints": {
+      "template": "Pick what you want produced. The agent reads your files and creates this for you.",
+      "taskTitle": "A name to find this task later. Leave blank to use the template name.",
+      "workingFolder": "Where results are saved. A .cowork-office subfolder is created here.",
+      "outputFormat": "File type of the result. Auto lets the agent pick the best fit for the template.",
+      "language": "Language of the written result. Auto follows your source files.",
+      "detailLevel": "How thorough the result is — Brief for a quick read, Deep for full analysis.",
+      "audience": "Who will read this, so the tone fits. Optional.",
+      "inputFiles": "The files the agent reads. They are never modified.",
+      "safety": "Confirm what the agent may read and where it writes before it starts."
+    },
     "outputFormats": {
       "auto": "Auto",
       "markdown": "Markdown",

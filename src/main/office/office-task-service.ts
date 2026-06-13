@@ -5,12 +5,12 @@ import type { ContentBlock, ServerEvent, SessionStatus, TextContent } from '../.
 import type {
   OfficeArtifact,
   OfficeArtifactPreview,
-  OfficeArtifactType,
   OfficeTask,
   OfficeTaskStartInput,
   OfficeTaskTemplateId,
   OfficeTaskWithArtifacts,
 } from '../../shared/office-tasks';
+import { classifyArtifact } from '../../shared/office-task-progress';
 import type { SessionManager } from '../session/session-manager';
 import type { OfficeTaskStore } from './office-task-store';
 import {
@@ -552,37 +552,6 @@ function guessMimeType(filePath: string): string {
       return 'text/plain';
     default:
       return 'application/octet-stream';
-  }
-}
-
-function classifyArtifact(fileName: string): OfficeArtifactType {
-  const ext = path.extname(fileName).toLowerCase();
-  switch (ext) {
-    case '.doc':
-    case '.docx':
-      return 'document';
-    case '.ppt':
-    case '.pptx':
-    case '.key':
-      return 'presentation';
-    case '.xls':
-    case '.xlsx':
-    case '.csv':
-    case '.tsv':
-      return 'spreadsheet';
-    case '.pdf':
-      return 'pdf';
-    case '.md':
-    case '.markdown':
-      return 'markdown';
-    case '.png':
-    case '.jpg':
-    case '.jpeg':
-    case '.gif':
-    case '.webp':
-      return 'image';
-    default:
-      return 'other';
   }
 }
 

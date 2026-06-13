@@ -97,6 +97,107 @@
     "deleteArtifactConfirm": "删除 {{name}}？",
     "previewUnsupported": "此文件类型暂不支持预览。",
     "previewTruncated": "预览内容已截断",
+    "currentStep": "当前步骤",
+    "details": "详细日志",
+    "resultLabel": "本次产物",
+    "phases": {
+      "queued": "排队中",
+      "reading": "读取文件",
+      "analyzing": "分析内容",
+      "generating": "生成文档",
+      "done": "完成"
+    },
+    "activity": {
+      "reading": "正在读取 {{name}}",
+      "readingGeneric": "正在读取源文件",
+      "writing": "正在写入 {{name}}",
+      "writingGeneric": "正在写入产物",
+      "editing": "正在编辑 {{name}}",
+      "editingGeneric": "正在编辑产物",
+      "producedArtifact": "已生成 {{name}}",
+      "producedArtifactGeneric": "已生成文件",
+      "searching": "正在搜索「{{query}}」",
+      "searchingGeneric": "正在检索内容",
+      "finding": "正在查找文件",
+      "listing": "正在列出文件",
+      "generatingFile": "正在生成 {{format}} 文件",
+      "converting": "正在转换文档",
+      "installingDeps": "正在准备工具",
+      "runningScript": "正在运行脚本",
+      "runningCommand": "正在工作区中处理",
+      "browsing": "正在查阅资料",
+      "planning": "正在规划步骤",
+      "usingTool": "正在使用 {{tool}}",
+      "thinking": "正在分析内容",
+      "working": "处理中"
+    },
+    "resultSummary": {
+      "deliverableSingle": "1 个{{role}}",
+      "deliverableMany": "{{count}} 个文件",
+      "fromInputs_one": "来自 {{count}} 个文件",
+      "fromInputs_other": "来自 {{count}} 个文件",
+      "line": "{{deliverable}}（{{inputs}}）",
+      "running": "处理中……尚未生成文件",
+      "cancelled": "已取消，未生成文件",
+      "error": "失败，未生成文件",
+      "emptyCompleted": "已完成，但没有输出文件"
+    },
+    "artifactRoles": {
+      "generic": {
+        "document": "文档",
+        "presentation": "演示文稿",
+        "spreadsheet": "表格",
+        "pdf": "PDF",
+        "markdown": "Markdown",
+        "image": "图片",
+        "other": "文件"
+      },
+      "file_summary": {
+        "document": "摘要",
+        "markdown": "摘要"
+      },
+      "pdf_summary": {
+        "document": "执行摘要",
+        "markdown": "摘要",
+        "pdf": "源 PDF"
+      },
+      "spreadsheet_analysis": {
+        "document": "分析报告",
+        "markdown": "分析报告",
+        "spreadsheet": "衍生工作簿"
+      },
+      "report_generation": {
+        "document": "业务报告",
+        "markdown": "业务报告"
+      },
+      "deck_generation": {
+        "presentation": "演示文稿",
+        "markdown": "大纲",
+        "document": "演讲备注"
+      }
+    },
+    "artifactFormats": {
+      "docx": "DOCX",
+      "md": "Markdown",
+      "pdf": "PDF",
+      "xlsx": "XLSX",
+      "pptx": "PPTX",
+      "csv": "CSV",
+      "other": "文件"
+    },
+    "primaryBadge": "主产物",
+    "supportingBadge": "附属文件",
+    "hints": {
+      "template": "选择你想要的产物。智能体会读取文件并为你生成它。",
+      "taskTitle": "用于日后查找的名称。留空则使用模板名。",
+      "workingFolder": "结果保存的位置，会在此创建 .cowork-office 子文件夹。",
+      "outputFormat": "结果的文件类型。「自动」会按模板挑选最合适的格式。",
+      "language": "结果的书写语言。「自动」会跟随源文件。",
+      "detailLevel": "结果的详尽程度——「简要」便于速读，「深入」是完整分析。",
+      "audience": "给谁看，以便语气贴合。可选。",
+      "inputFiles": "智能体会读取这些文件，绝不会修改它们。",
+      "safety": "开始前确认智能体可读取的内容与写入的位置。"
+    },
     "outputFormats": {
       "auto": "自动",
       "markdown": "Markdown",

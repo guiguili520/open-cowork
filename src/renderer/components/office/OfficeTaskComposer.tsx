@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { File, FolderOpen, Loader2, Presentation, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -7,6 +8,10 @@ import {
   type OfficeTaskTemplateId,
 } from '../../../shared/office-tasks';
 import { EmptyLine, SectionLabel, TemplateButton } from './OfficeTaskPanels';
+
+function FieldHint({ children }: { children: ReactNode }) {
+  return <p className="text-[11px] leading-4 text-text-muted">{children}</p>;
+}
 
 interface OfficeTaskComposerProps {
   selectedTemplateId: OfficeTaskTemplateId;
@@ -72,6 +77,7 @@ export function OfficeTaskComposer({
             />
           ))}
         </div>
+        <FieldHint>{t('office.hints.template')}</FieldHint>
       </div>
 
       <div className="space-y-2">
@@ -82,6 +88,7 @@ export function OfficeTaskComposer({
           placeholder={selectedTemplate ? t(selectedTemplate.titleKey) : ''}
           className="w-full rounded-lg border border-border-muted bg-background px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent"
         />
+        <FieldHint>{t('office.hints.taskTitle')}</FieldHint>
       </div>
 
       <div className="space-y-2">
@@ -95,6 +102,7 @@ export function OfficeTaskComposer({
             {workingDir ? formatPath(workingDir) : t('office.selectFolder')}
           </span>
         </button>
+        <FieldHint>{t('office.hints.workingFolder')}</FieldHint>
       </div>
 
       <TaskOptionsEditor options={options} onChange={onOptionsChange} />
@@ -142,6 +150,7 @@ function TaskOptionsEditor({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <SelectField
           label={t('office.outputFormat')}
+          hint={t('office.hints.outputFormat')}
           value={options.outputFormat}
           onChange={(value) =>
             onChange({ ...options, outputFormat: value as OfficeTaskOptions['outputFormat'] })
@@ -153,6 +162,7 @@ function TaskOptionsEditor({
         />
         <SelectField
           label={t('office.language')}
+          hint={t('office.hints.language')}
           value={options.language}
           onChange={(value) =>
             onChange({ ...options, language: value as OfficeTaskOptions['language'] })
@@ -164,6 +174,7 @@ function TaskOptionsEditor({
         />
         <SelectField
           label={t('office.detailLevel')}
+          hint={t('office.hints.detailLevel')}
           value={options.detailLevel}
           onChange={(value) =>
             onChange({ ...options, detailLevel: value as OfficeTaskOptions['detailLevel'] })
@@ -181,6 +192,7 @@ function TaskOptionsEditor({
             placeholder={t('office.audiencePlaceholder')}
             className="w-full h-9 rounded-lg border border-border-muted bg-background px-2.5 text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent"
           />
+          <FieldHint>{t('office.hints.audience')}</FieldHint>
         </label>
       </div>
     </div>
@@ -189,11 +201,13 @@ function TaskOptionsEditor({
 
 function SelectField({
   label,
+  hint,
   value,
   options,
   onChange,
 }: {
   label: string;
+  hint?: string;
   value: string;
   options: Array<{ value: string; label: string }>;
   onChange: (value: string) => void;
@@ -212,6 +226,7 @@ function SelectField({
           </option>
         ))}
       </select>
+      {hint && <FieldHint>{hint}</FieldHint>}
     </label>
   );
 }
@@ -238,6 +253,7 @@ function InputFilesPanel({
           {t('office.addFiles')}
         </button>
       </div>
+      <FieldHint>{t('office.hints.inputFiles')}</FieldHint>
       {inputPaths.length === 0 ? (
         <EmptyLine label={t('office.noFiles')} />
       ) : (
@@ -281,6 +297,7 @@ function SafetyConfirmation({
   return (
     <div className="rounded-lg border border-border-muted bg-background px-3 py-3 space-y-2">
       <SectionLabel>{t('office.safety')}</SectionLabel>
+      <FieldHint>{t('office.hints.safety')}</FieldHint>
       <div className="space-y-1 text-xs text-text-muted">
         <p>{t('office.safetyReadFiles', { count: fileCount })}</p>
         <p>
