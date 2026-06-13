@@ -262,6 +262,14 @@
       "deleteArtifact": "删除产物失败",
       "revealArtifact": "显示产物失败",
       "revealOutputDir": "打开输出文件夹失败"
+    },
+    "errorTypes": {
+      "noArtifacts": "未生成任何输出文件，请重试。",
+      "timeout": "请求超时，请重试。",
+      "aborted": "操作被中断，请重试。",
+      "requestFailed": "AI 服务请求失败，请重试。",
+      "sessionError": "智能体会话遇到问题，请检查设置后重试。",
+      "generic": "任务遇到错误，请重试。"
     }
   },
   "settings": {

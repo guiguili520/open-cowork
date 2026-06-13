@@ -262,6 +262,14 @@
       "deleteArtifact": "Failed to delete artifact",
       "revealArtifact": "Failed to reveal artifact",
       "revealOutputDir": "Failed to open output folder"
+    },
+    "errorTypes": {
+      "noArtifacts": "No output files were produced. Try running the task again.",
+      "timeout": "The request timed out. Try running the task again.",
+      "aborted": "The operation was interrupted. Try running the task again.",
+      "requestFailed": "A request to the AI service failed. Try running the task again.",
+      "sessionError": "The agent session encountered a problem. Check your settings and retry.",
+      "generic": "The task encountered an error. Try running it again."
     }
   },
   "settings": {

@@ -16,6 +16,7 @@ import type {
   OfficeTaskTemplate,
   TraceStep,
 } from '../../types';
+import { classifyOfficeTaskError } from '../../../shared/office-task-error-format';
 import { OfficeTaskProgress } from './OfficeTaskProgress';
 import { OfficeArtifactList } from './OfficeArtifactList';
 import { EmptyLine } from './OfficePrimitives';
@@ -166,11 +167,19 @@ export function TaskDetail({
         />
       </div>
 
-      {task.error && (
-        <div className="rounded-lg border border-error/30 bg-error/10 px-3 py-2 text-sm text-error">
-          {task.error}
-        </div>
-      )}
+      {task.error && <TaskErrorCard error={task.error} t={t} />}
+    </div>
+  );
+}
+
+function TaskErrorCard({ error, t }: { error: string; t: ReturnType<typeof useTranslation>['t'] }) {
+  const classification = classifyOfficeTaskError(error);
+  return (
+    <div className="rounded-lg border border-error/30 bg-error/10 px-3 py-2.5 space-y-1">
+      <span className="inline-block rounded px-2 py-0.5 text-[11px] font-semibold bg-error/20 text-error">
+        {t(classification.i18nKey)}
+      </span>
+      <p className="text-xs text-error/80 break-words">{error}</p>
     </div>
   );
 }

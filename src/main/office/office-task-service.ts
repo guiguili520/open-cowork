@@ -18,7 +18,8 @@ import {
   normalizeOfficeTaskOptions,
   validateOfficeTaskStartInput,
 } from './office-task-templates';
-import { log, logError, logWarn } from '../utils/logger';
+import { log, logCtx, logCtxWarn, logCtxError, runWithLogContext } from '../utils/logger';
+import { redactValue } from '../utils/log-redaction';
 
 export interface OfficeTaskServiceOptions {
   store: OfficeTaskStore;
@@ -97,6 +98,12 @@ export class OfficeTaskService {
     });
     const content = this.buildContentBlocks(input.inputPaths, prompt);
 
+    this.logTaskEvent(taskId, 'info', '[OfficeTask] start', {
+      template: input.templateId,
+      inputs: input.inputPaths.length,
+      outputDir,
+    });
+
     try {
       const session = await this.sessionManager.startSession(
         title,
@@ -110,6 +117,7 @@ export class OfficeTaskService {
         sessionId: session.id,
         error: null,
       });
+      this.logTaskEvent(taskId, 'info', '[OfficeTask] running', { sessionId: session.id });
       this.emitTaskUpdate(runningTask ?? task);
       this.sendToRenderer({
         type: 'session.update',
@@ -121,6 +129,10 @@ export class OfficeTaskService {
       };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
+      this.logTaskEvent(task.id, 'error', '[OfficeTask] failed (start)', {
+        pathway: 'start-failure',
+        error,
+      });
       const failedTask =
         this.store.update(task.id, {
           status: 'error',
@@ -305,6 +317,9 @@ export class OfficeTaskService {
       const artifacts = this.scanOutputArtifacts(task);
       this.store.replaceArtifacts(task.id, artifacts);
       if (artifacts.length === 0) {
+        this.logTaskEvent(task.id, 'error', '[OfficeTask] failed (no artifacts)', {
+          pathway: 'no-artifacts',
+        });
         const updated = this.store.update(task.id, {
           status: 'error',
           error: NO_ARTIFACTS_ERROR,
@@ -315,6 +330,7 @@ export class OfficeTaskService {
         }
         return;
       }
+      this.logTaskEvent(task.id, 'info', '[OfficeTask] completed', { artifacts: artifacts.length });
       const updated = this.store.update(task.id, {
         status: 'completed',
         error: null,
@@ -325,7 +341,10 @@ export class OfficeTaskService {
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      logError('[OfficeTask] Failed to refresh artifacts after session finished:', error);
+      this.logTaskEvent(task.id, 'error', '[OfficeTask] failed (artifact scan)', {
+        pathway: 'scan-error',
+        error,
+      });
       const updated = this.store.update(task.id, {
         status: 'error',
         error: message,
@@ -342,6 +361,10 @@ export class OfficeTaskService {
     if (!task || task.status === 'cancelled') {
       return;
     }
+    this.logTaskEvent(task.id, 'error', '[OfficeTask] failed (session)', {
+      pathway: 'session-error',
+      reason: message,
+    });
     const updated = this.store.update(task.id, {
       status: 'error',
       error: message,
@@ -384,7 +407,10 @@ export class OfficeTaskService {
 
   private scanOutputArtifacts(task: OfficeTask): OfficeArtifact[] {
     if (!fs.existsSync(task.outputDir)) {
-      logWarn('[OfficeTask] Output directory missing while scanning artifacts:', task.outputDir);
+      logCtxWarn(
+        '[OfficeTask] Output directory missing while scanning artifacts:',
+        redactValue(task.outputDir)
+      );
       return [];
     }
 
@@ -438,6 +464,27 @@ export class OfficeTaskService {
     if (resolvedArtifactPath !== resolvedOutputDir && !resolvedArtifactPath.startsWith(prefix)) {
       throw new Error('Artifact path is outside the task output directory');
     }
+  }
+
+  /**
+   * Emit a context-tagged, redacted lifecycle log line for a task. Secrets and
+   * home-path usernames in `detail` are masked before they reach the log file,
+   * and every line carries the task id as a trace tag for correlation.
+   */
+  private logTaskEvent(
+    taskId: string,
+    level: 'info' | 'error',
+    message: string,
+    detail?: unknown
+  ): void {
+    runWithLogContext({ traceId: taskId, module: 'OfficeTask' }, () => {
+      const args: unknown[] = detail === undefined ? [message] : [message, redactValue(detail)];
+      if (level === 'error') {
+        logCtxError(...args);
+      } else {
+        logCtx(...args);
+      }
+    });
   }
 
   private emitTaskUpdate(task: OfficeTask): void {
